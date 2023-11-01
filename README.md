@@ -1,11 +1,15 @@
 # web3py-discord-bot
 
-A Discord bot reference repo leveraging the
-[web3.py](https://web3py.readthedocs.io/en/stable/) websocket provider.
+A Discord bot reference repo leveraging the newly rewritten
+[web3.py](https://web3py.readthedocs.io/en/stable/) websocket provider,
+`WebsocketProviderV2`, which includes `eth_subscribe` support.
 
 This bot can listen for subscriptions on a particular channel or execute one-off
-requests, like retrieving a balance or some block data. The bot's architecture
-can support multiple chains.
+requests, like retrieving a balance or some block data.
+
+The bot's architecture can support multiple chains. It will default to mainnet,
+but you can add `sepolia` or `optimism` to the end of any command to interact
+with those networks instead (if you include valid URLs in your `.env` file).
 
 ### One-off commands
 
@@ -21,13 +25,15 @@ example:
 The user flow for subscriptions is to:
 
 1. Tell the bot which channel to listen for messages in (`!listen`)
-2. Create a new subscription (`!newHeads, !transfers`)
-3. Unsubscribe (`!cancel newHeads`, `!cancel transfers`)
+1. Create a new subscription (`!newHeads, !transfers`)
+1. View your active subscriptions (`!subs`)
+1. Unsubscribe (`!cancel newHeads`, `!cancel transfers`)
 
 A couple of sample subscription commands are included:
 
 - `!newHeads` will start a subscription watching for new block headers
-- `!transfers` will watch for new `Transfer` events from the Art Blocks NFT contract
+- `!transfers` will watch for new `Transfer` events from the Art Blocks NFT
+  contract
 
 ## Setup
 
@@ -51,3 +57,12 @@ A couple of sample subscription commands are included:
 This bot is for educational purposes only and does not aspire to be anything
 robustly production-grade. Hopefully it's a good starting point for your
 hackathon project or next adventure.
+
+That said,
+
+- the web3.py team wants your feedback on `WebsocketProviderV2`! Open an
+  [issue](https://github.com/ethereum/web3.py) if you encounter one, or share
+  your experience in the Ethereum Python Community
+  [Discord](https://discord.gg/GHryRvPB84).
+- I'm happy to field suggestions or bug reports in this repo. Open issues as you
+  see fit.

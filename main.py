@@ -178,7 +178,7 @@ async def cancel_subscription(ctx, subscription_name, network="mainnet"):
         if unsubscribed:
             network_subs.pop(subscription_name)
             await ctx.send(
-                _network_log(f"Unsubscribed from {subscription_name}"), network
+                _network_log(f"Unsubscribed from {subscription_name}", network)
             )
             await ctx.send(f"Active subscriptions: {active_subscriptions}")
         else:

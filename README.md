@@ -2,7 +2,9 @@
 
 A Discord bot reference repo leveraging the newly rewritten
 [web3.py](https://web3py.readthedocs.io/en/stable/) websocket provider,
-`WebsocketProviderV2`, which includes `eth_subscribe` support.
+`WebsocketProviderV2`, which includes `eth_subscribe` support. Check out the
+[blog post](https://snakecharmers.ethereum.org/websockets-v2/) for an
+introduction to websockets and the provider.
 
 This bot can listen for subscriptions on a particular channel or execute one-off
 requests, like retrieving a balance or some block data.
@@ -56,9 +58,9 @@ A couple of sample subscription commands are included:
 
 ## Disclaimer
 
-This bot is for educational purposes only and does not aspire to be anything
-robustly production-grade. Hopefully it's a good starting point for your
-hackathon project or next adventure.
+This bot is for educational purposes and does not aspire to be anything robustly
+production-grade. Hopefully it's a good starting point for your hackathon
+project or next adventure.
 
 That said,
 

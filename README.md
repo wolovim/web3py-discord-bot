@@ -35,6 +35,8 @@ A couple of sample subscription commands are included:
 - `!transfers` will watch for new `Transfer` events from the Art Blocks NFT
   contract
 
+  <img width="843" alt="Screenshot 2023-11-01 at 10 45 32 AM" src="https://github.com/wolovim/web3py-discord-bot/assets/3621728/86d06b9d-ea41-45ec-b146-b1e241150dca">
+
 ## Setup
 
 - Follow `discord.py` directions to

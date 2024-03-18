@@ -52,7 +52,7 @@ A couple of sample subscription commands are included:
     [channel ID](https://docs.statbot.net/docs/faq/general/how-find-id) of a
     channel you'd like to see startup messages in
 - Install dependencies: `pip install -r requirements.txt`
-- Start the bot in a terminal: `python snekbot.py`
+- Start the bot in a terminal: `python main.py`
 - Use the bot. Try `!help` to view a list of commands.
 - Bonus: host your bot! You can only do so much from your local machine.
 
@@ -61,12 +61,3 @@ A couple of sample subscription commands are included:
 This bot is for educational purposes and does not aspire to be anything robustly
 production-grade. Hopefully it's a good starting point for your hackathon
 project or next adventure.
-
-That said,
-
-- the web3.py team wants your feedback on `WebsocketProviderV2`! Open an
-  [issue](https://github.com/ethereum/web3.py) if you encounter one, or share
-  your experience in the Ethereum Python Community
-  [Discord](https://discord.gg/GHryRvPB84).
-- I'm happy to field suggestions or bug reports in this repo. Open issues as you
-  see fit.

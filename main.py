@@ -3,7 +3,7 @@ import discord
 import asyncio
 from discord.ext import commands
 from dotenv import load_dotenv
-from web3 import AsyncWeb3, WebsocketProviderV2
+from web3 import AsyncWeb3, WebSocketProvider
 from eth_abi.abi import decode
 
 # If you want insight into the underlying websocket:
@@ -23,17 +23,18 @@ intents = discord.Intents.default()
 intents.message_content = True
 bot = commands.Bot(command_prefix="!", intents=intents)
 
-w3_mainnet = AsyncWeb3.persistent_websocket(WebsocketProviderV2(WSS_URL_MAINNET))
-w3_sepolia = AsyncWeb3.persistent_websocket(WebsocketProviderV2(WSS_URL_SEPOLIA))
-w3_optimism = AsyncWeb3.persistent_websocket(WebsocketProviderV2(WSS_URL_OP))
+w3_mainnet = AsyncWeb3(WebSocketProvider(WSS_URL_MAINNET))
+# w3_sepolia = AsyncWeb3(WebSocketProvider(WSS_URL_SEPOLIA))
+w3_optimism = AsyncWeb3(WebSocketProvider(WSS_URL_OP))
 
 NETWORKS = {
     "mainnet": w3_mainnet,
-    "sepolia": w3_sepolia,
+    # "sepolia": w3_sepolia,
     "optimism": w3_optimism,
 }
 
 active_subscriptions = {
+    # This will get populated during bot usage, e.g.:
     # "mainnet": {"newHeads": subscription_id_1, "transfers": subscription_id_2},
     # "optimism": {"newHeads": subscription_id_3, "transfers": subscription_id_4},
     # "sepolia": {"newHeads": subscription_id_5, "transfers": subscription_id_6},
@@ -125,7 +126,7 @@ async def listen(ctx, network="mainnet"):
     w3 = NETWORKS[network]
     while True:
         try:
-            async for payload in w3.ws.listen_to_websocket():
+            async for payload in w3.socket.process_subscriptions():
                 # standard payload: {"subscription": "{id}", "result": "{payload}"}
                 if "subscription" not in payload:
                     logging.debug(f"\n∆∆∆ non-standard payload: {payload}")
@@ -198,7 +199,7 @@ async def add_headers_subscription(ctx, network="mainnet"):
 
     if "newHeads" not in network_subs:
         headers_subscription_id = await w3.eth.subscribe("newHeads")
-        active_subscriptions[network] = {"newHeads": headers_subscription_id}
+        active_subscriptions[network]["newHeads"] = headers_subscription_id
         await ctx.send(
             _network_log(
                 "Subscribed to newHeads with id " f"{headers_subscription_id}", network
@@ -234,7 +235,7 @@ async def transfers(ctx, network="mainnet"):
 
     if "transfers" not in active_subscriptions[network]:
         subscription_id = await w3.eth.subscribe("logs", filter_params)
-        active_subscriptions[network] = {"transfers": subscription_id}
+        active_subscriptions[network]["transfers"] = subscription_id
         await ctx.send(
             _network_log(f"Subscribed to transfers with id {subscription_id}", network)
         )

@@ -1,17 +1,17 @@
 # web3py-discord-bot
 
 A Discord bot reference repo leveraging the newly rewritten
-[web3.py](https://web3py.readthedocs.io/en/stable/) websocket provider,
-`WebsocketProviderV2`, which includes `eth_subscribe` support. Check out the
-[blog post](https://snakecharmers.ethereum.org/websockets-v2/) for an
-introduction to websockets and the provider.
+[web3.py](https://web3py.readthedocs.io/en/latest/) `WebSocketProvider`,
+which includes `eth_subscribe` support. Check out the
+[blog post](https://snakecharmers.ethereum.org/websocketprovider/) for an
+introduction to WebSockets and the provider.
 
 This bot can listen for subscriptions on a particular channel or execute one-off
 requests, like retrieving a balance or some block data.
 
 The bot's architecture can support multiple chains. It will default to mainnet,
 but you can add `sepolia` or `optimism` to the end of any command to interact
-with those networks instead (if you include valid URLs in your `.env` file).
+with those networks instead (if you include valid RPC URLs in your `.env` file).
 
 ### One-off commands
 

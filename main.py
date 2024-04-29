@@ -8,6 +8,7 @@ from eth_abi.abi import decode
 
 # If you want insight into the underlying websocket:
 import logging
+
 logging.basicConfig(level=logging.DEBUG)
 
 load_dotenv()
@@ -110,7 +111,7 @@ async def handle_new_transfer(transfer, network="mainnet"):
     to_addr = decode(["address"], transfer["topics"][2])[0]
     message = _network_log(
         f"{from_addr[:8]}... transferred Art Blocks token "
-            f"[{token_id}](<https://etherscan.io/nft/{ART_BLOCKS_ADDRESS}/{token_id}>) to {to_addr[:8]}... in "
+        f"[{token_id}](<https://etherscan.io/nft/{ART_BLOCKS_ADDRESS}/{token_id}>) to {to_addr[:8]}... in "
         f"block [{transfer['blockNumber']}](<https://etherscan.io/tx/{transfer['transactionHash'].hex()}>)",
         network,
     )
@@ -173,7 +174,7 @@ async def view_subscriptions(ctx):
 async def cancel_subscription(ctx, subscription_name, network="mainnet"):
     """Unsubscribe from a subscription"""
     w3 = NETWORKS[network]
-    network_subs = active_subscriptions.get(network)
+    network_subs = active_subscriptions.get(network, [])
     try:
         unsubscribed = await w3.eth.unsubscribe(network_subs[subscription_name])
         if unsubscribed:
@@ -195,7 +196,7 @@ async def add_headers_subscription(ctx, network="mainnet"):
     """Add a newHeads subscription"""
     w3 = NETWORKS[network]
 
-    network_subs = active_subscriptions.get(network)
+    network_subs = active_subscriptions.get(network, [])
 
     if "newHeads" not in network_subs:
         headers_subscription_id = await w3.eth.subscribe("newHeads")
@@ -208,7 +209,7 @@ async def add_headers_subscription(ctx, network="mainnet"):
     else:
         await ctx.send(
             _network_log(
-                f"Already subscribed to newHeads with id {network_subs['newHeads']}",
+                f"Already subscribed to newHeads with id {network_subs.get('newHeads')}",
                 network,
             )
         )

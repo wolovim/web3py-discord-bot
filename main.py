@@ -228,7 +228,7 @@ async def transfers(ctx, network="mainnet"):
         return
     w3 = NETWORKS[network]
 
-    transfer_event_topic = w3.keccak(text="Transfer(address,address,uint256)").hex()
+    transfer_event_topic = w3.keccak(text="Transfer(address,address,uint256)")
     filter_params = {
         "address": ART_BLOCKS_ADDRESS,
         "topics": [transfer_event_topic],
